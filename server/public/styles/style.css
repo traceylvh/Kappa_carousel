@@ -1,0 +1,21 @@
+/*.container {
+  margin: auto;
+}*/
+
+
+
+.indicator-block {
+  width: 15px;
+  height: 20px;
+  margin: 1px;
+  background-color: #ccc;
+  display: inline-block;
+  border-style: solid;
+  border-width: thin;
+  border-color: #000;
+}
+
+
+button {
+  width: 10em;
+}
