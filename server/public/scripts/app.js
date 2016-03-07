@@ -1,5 +1,6 @@
 var kappaArray = [];
 var index = 0;
+var elementArray = [];
 
 $(document).ready(function(){
     $.ajax({
@@ -10,11 +11,13 @@ $(document).ready(function(){
         console.log(data);
       kappaArray = data.kappa;
       appendDom(kappaArray[index]);
+      createIndicators(kappaArray);
+      changeBackground();
 
         //listen for Next button click
-        $('.the-buttons').on('click', '.btn-forward', clickCount);
-        $('.the-buttons').on('click', '.btn-forward', createDisplay);
-        // $('.the-buttons').on('click', '.indicators', changeBackground);
+        $('.btn-forward').on('click', clickCount);
+        $('.btn-forward').on('click', createDisplay);
+        $('.btn-forward').on('click', changeBackground);
 
         $('.the-buttons').on('click', '.btn-back', clickBack);
         $('.the-buttons').on('click', '.btn-back', createDisplay);
@@ -25,11 +28,10 @@ $(document).ready(function(){
 });
 
 
-function appendDom(data) {
+function appendDom() {
 
-  createDisplay(data);
+  createDisplay();
 
-  createIndicators();
 
 }
 
@@ -79,20 +81,48 @@ function createDisplay() {
 //for indicators, make a list that uses the array length...
 function createIndicators() {
   $('.indicators').append('<p class="indicatorList"></p>');
-
-  var $el = $('.indicators').children().last();
-
   for (var i = 0; i < kappaArray.length; i++) {
-    $el.append('<div class="spot-off spot-on indicator-block' + i + '"></div>').data(i);
-
+    var $el = $('.indicators').children().last();
+    $el.append('<div class="spot-off"></div>');
+    var $el = $el.children().last();
+    elementArray.push($el);
   }
+}
 
+// //scott's code
+// function createIndexNodes(array){
+//   for(var i = 0; i < array.length; i++){
+//     $('.index-container').append("<div class='index-point'></div>");
+//     var $el = $(".index-container").children().last();
+//     $el.data("index", i);
+//     console.log($el.data());
+//     elementArray.push($el);
+//   }
+// }
+
+// //change the indicator background color
+function changeBackground() {
+  console.log("Totally works : ", elementArray);
+
+        for(var i = 0; i < elementArray.length; i++) {
+          var $el = elementArray[i];
+          if(i == index) {
+            $el.addClass('spot-on');
+          } else {
+            $el.removeClass('spot-on');
+          }
+        }
 }
 
 
-
-// //change the indicator background color
-// function changeBackground() {
-//         $(.indicators).removeClass('spot-on');
-//         // $(this).toggleClass('spot-on');
+// //scott's codefunction updateHighlight(){
+// function updateHighlight(){
+//   for(var i = 0; i < elementArray.length; i++){
+//     var $el = elementArray[i];
+//     if(i == globalIndex){
+//       $el.addClass("index-hightlight");
+//     } else {
+//       $el.removeClass("index-hightlight");
+//     }
+//   }
 // }

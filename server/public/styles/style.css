@@ -35,14 +35,7 @@ h1 {
 }
 
 .spot-on {
-  width: 15px;
-  height: 20px;
-  margin: 1px;
-  background-color: red;
-  display: inline-block;
-  border-style: solid;
-  border-width: thin;
-  border-color: #000;
+  background-color: #094E7D;
 }
 
 .shoutout {
