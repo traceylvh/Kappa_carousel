@@ -12,18 +12,18 @@ h1 {
 
 .container {
   background-color: #fff;
-  height: 320px;
+  height: 350px;
 }
 
 .main {
-  height: 200px;
+  height: 250px;
 }
 
 .indicators {
   margin-top: 20px;
 }
 
-.indicator-block {
+.spot-off {
   width: 15px;
   height: 20px;
   margin: 1px;
@@ -34,7 +34,7 @@ h1 {
   border-color: #000;
 }
 
-.change {
+.spot-on {
   width: 15px;
   height: 20px;
   margin: 1px;

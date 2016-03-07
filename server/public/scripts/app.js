@@ -6,7 +6,7 @@ $(document).ready(function(){
       type: "GET",
       url: "/data",
       success: function(data){
-        //trying out Michelle's code
+        //trying out Michelle's array code
         console.log(data);
       kappaArray = data.kappa;
       appendDom(kappaArray[index]);
@@ -14,7 +14,7 @@ $(document).ready(function(){
         //listen for Next button click
         $('.the-buttons').on('click', '.btn-forward', clickCount);
         $('.the-buttons').on('click', '.btn-forward', createDisplay);
-        $('.the-buttons').on('click', '.indicator-block', createIndicators);
+        // $('.the-buttons').on('click', '.indicators', changeBackground);
 
         $('.the-buttons').on('click', '.btn-back', clickBack);
         $('.the-buttons').on('click', '.btn-back', createDisplay);
@@ -35,15 +35,15 @@ function appendDom(data) {
 
 
 
-//count clicks and store on buttons
+//count clicks and store on buttons (later: stop storing on buttons)
 
 function clickCount() {
   if (index < kappaArray.length - 1) {
     index++;
-    $('.btn-forward').data("currentClick", index);
+    // $('.btn-forward').data("currentClick", index);
   } else {
     index = 0;
-    $('.btn-forward').data("currentClick", index);
+    //$('.btn-forward').data("currentClick", index);
   }
 
 }
@@ -51,10 +51,10 @@ function clickCount() {
 function clickBack() {
   if (index > 0) {
     index--;
-    $('.btn-back').data("currentClick", index);
+  //  $('.btn-back').data("currentClick", index);
 } else {
     index = kappaArray.length - 1;
-  $('.btn-back').data("currentClick", index);
+  //$('.btn-back').data("currentClick", index);
 }
 
 }
@@ -70,6 +70,7 @@ function createDisplay() {
 
   $el.append('<h2>' + kappaArray[index].name + '</h2>');
   $el.append('<p>' + kappaArray[index].location + '</p>');
+  $el.append('<p>Spirit Animal: ' + kappaArray[index].spirit_animal + '</p>');
   $el.append('<p class="shoutout">' + kappaArray[index].shoutout + '</p>');
 
 }
@@ -82,25 +83,16 @@ function createIndicators() {
   var $el = $('.indicators').children().last();
 
   for (var i = 0; i < kappaArray.length; i++) {
-    $el.append('<div class="indicator-block"></div>').data(i);
+    $el.append('<div class="spot-off spot-on indicator-block' + i + '"></div>').data(i);
 
-    function changeBackground() {
-      // if ($('<div class="indicator-block"></div>').data(i) == $('.btn-forward').data("currentClick")) {
-      if (1 < 3) {
-            // $(this).removeClass('indicator-block');
-            // $(this).addClass('change');
-
-            $(this).toggleClass('change');
-      }
-    }
   }
 
 }
 
-//change the background color
+
+
+// //change the indicator background color
 // function changeBackground() {
-//   if ($(this).data(i) == $('.btn-forward').data("currentClick", index)) {
-//         $(this).removeClass('indicator-block');
-//         $(this).addClass('change');
-//   }
+//         $(.indicators).removeClass('spot-on');
+//         // $(this).toggleClass('spot-on');
 // }
