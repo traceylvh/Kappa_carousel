@@ -1,15 +1,23 @@
-
+var kappaArray = [];
+var index = 0;
 
 $(document).ready(function(){
     $.ajax({
       type: "GET",
       url: "/data",
       success: function(data){
-        appendDom(data);
+        //trying out Michelle's code
+        console.log(data);
+      kappaArray = data.kappa;
+      appendDom(kappaArray[index]);
 
         //listen for Next button click
         $('.the-buttons').on('click', '.btn-forward', clickCount);
-        $('.the-buttons').on('click', '.btn-forward', updateDisplay);
+        $('.the-buttons').on('click', '.btn-forward', createDisplay);
+        $('.the-buttons').on('click', '.indicator-block', createIndicators);
+
+        $('.the-buttons').on('click', '.btn-back', clickBack);
+        $('.the-buttons').on('click', '.btn-back', createDisplay);
 
 
       }
@@ -19,92 +27,80 @@ $(document).ready(function(){
 
 function appendDom(data) {
 
-  // grabData(data);
-
   createDisplay(data);
 
-  createIndicators(data);
+  createIndicators();
 
 }
 
 
-//grab the data from the server so I don't have to have (data) passed into the functions
 
-// function grabData(data) {
-//
-//   console.log(data.kappa[3].name);
-//
-//   for (var i=0; i < data.kappa.length; i++) {
-//
-//     function Student(aName, aLocation, aSpirit_animal, aShoutout){
-//       data.kappa[i].name = aName;
-//       data.kappa[i].location = aLocation;
-//       data.kappa[i].spirit_animal = aSpirit_animal;
-//       data.kappa[i].shoutout = aShoutout;
-//       studentArray.push(data.kappa[i]);
-//     }
-//   }
-// }
-// var studentArray = [];
-//
+//count clicks and store on buttons
 
-
-
-
-
-
-
-//count clicks
-var clicks = 0;
 function clickCount() {
-  clicks++;
-  $('.btn-forward').data("currentClick", clicks);
-    console.log($('.btn-forward').data("currentClick"));
+  if (index < kappaArray.length - 1) {
+    index++;
+    $('.btn-forward').data("currentClick", index);
+  } else {
+    index = 0;
+    $('.btn-forward').data("currentClick", index);
+  }
+
 }
 
+function clickBack() {
+  if (index > 0) {
+    index--;
+    $('.btn-back').data("currentClick", index);
+} else {
+    index = kappaArray.length - 1;
+  $('.btn-back').data("currentClick", index);
+}
 
-function createDisplay(data) {
+}
 
-  var kappaNumber = 0;
+//add info to DOM
+function createDisplay() {
+
+  $('.kappanDisplay').empty();
 
   $('.main').append('<div class="kappanDisplay"></div>');
 
   var $el = $('.main').children().last();
 
-  $el.append('<h2>' + data.kappa[kappaNumber].name + '</h2>');
-  $el.append('<p>' + data.kappa[kappaNumber].location + '</p>');
-  $el.append('<p>' + data.kappa[kappaNumber].shoutout + '</p>');
-
+  $el.append('<h2>' + kappaArray[index].name + '</h2>');
+  $el.append('<p>' + kappaArray[index].location + '</p>');
+  $el.append('<p class="shoutout">' + kappaArray[index].shoutout + '</p>');
 
 }
 
-//without the (data) in the function call this doesn't work...
-// function updateDisplay(data) {
-//
-//   $('.container').append('<div class="kappanDisplay"></div>');
-//
-//   var $el = $('.container').children().last();
-//
-//   // var kappaNumber = $('.btn-forward').data("currentClick");
-//
-//   $el.append('<h2>' + data.kappa[4].name + '</h2>');
-//   $el.append('<p>' + data.kappa[4].location + '</p>');
-//   $el.append('<p>' + data.kappa[4].shoutout + '</p>');
-//
-// }
-
-
-
-
 
 //for indicators, make a list that uses the array length...
-function createIndicators(data) {
+function createIndicators() {
   $('.indicators').append('<p class="indicatorList"></p>');
 
   var $el = $('.indicators').children().last();
 
-  for (var i = 0; i < data.kappa.length; i++) {
-    $el.append('<div class="indicator-block"></div>');
+  for (var i = 0; i < kappaArray.length; i++) {
+    $el.append('<div class="indicator-block"></div>').data(i);
 
+    function changeBackground() {
+      // if ($('<div class="indicator-block"></div>').data(i) == $('.btn-forward').data("currentClick")) {
+      if (1 < 3) {
+            // $(this).removeClass('indicator-block');
+            // $(this).addClass('change');
+
+            $(this).toggleClass('change');
+      }
+    }
   }
+
 }
+
+//change the background color
+// function changeBackground() {
+//   if ($(this).data(i) == $('.btn-forward').data("currentClick", index)) {
+//         $(this).removeClass('indicator-block');
+//         $(this).addClass('change');
+//   }
+// }
